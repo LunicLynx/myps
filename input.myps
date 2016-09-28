@@ -1,0 +1,54 @@
+picture "myPS-Beispiel"
+% Deklaration einiger Variablen
+var x : Num;
+var y : Num;
+var z : Num;
+var p : Path;
+var black : Term;
+
+start % Beginne mit Zeichenanweisungen
+
+
+ x := 3;
+ y <- x; % Variable y besitzt späte Bindung!
+ z := x;
+ x := 5;
+
+ black <- { setcolor(0,0,0); };
+ setfont("Times", 20); % Scriftart Times, 20pt
+
+ setcolor(1,0,0);
+ translate( 150, 400,
+   scale( 10, 10,
+     rotate(45,
+       draw( string2path((0,0),"Myps") )
+     )
+   )
+ );
+
+ black; % Setze die Farbe auf Schwarz
+ write( (100, 700), "Spaete Bindung: y = ");
+ write( num2string(y) ); % y hat den Wert 5
+ write( (100, 680), "Direkte Bindung: z = ");
+ write( num2string(z) ); % z hat den Wert 3
+ % Zeichne einige Kreisebögen un unterschiedlichen Farben
+ for i := 0 to 340 step 20 do
+   for r := 20 to 100 step 5 do
+     p := arc((300,300), r*i*0.01,i + 5, 360);
+     setcolor(i/340, r/100, 1);
+     draw(p);
+   done;
+ done;
+
+ setlinewidth(10);
+ black;
+
+ % Berechne 200 Punkte auf einer Sinuskurve und speichere den
+ % resultierenden Pfad in Variable.
+ p := plot( 0, 0, 200, 0, 3 * 360, (t, sin(t)) );
+
+ % Zeichne p in eine Bounding-Box der Größe 200 x 400 und verschiebe
+ % diese in den Punkt (100, 100).
+ translate( 100,100, { draw( scaletobox(400,200mp)); } );
+ 
+end 
