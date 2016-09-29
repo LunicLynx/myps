@@ -49,6 +49,6 @@ start % Beginne mit Zeichenanweisungen
 
  % Zeichne p in eine Bounding-Box der Größe 200 x 400 und verschiebe
  % diese in den Punkt (100, 100).
- translate( 100,100, { draw( scaletobox(400,200mp)); } );
+ translate( 100,100, { draw( scaletobox(400,200,p)); } );
  
 end 

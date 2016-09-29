@@ -1,55 +1,67 @@
 %{
-
-
-#define LPAREN 10001
-
 #include "y.tab.h"
 %}
 
-/* comment */
-comment        %.*
+digit                     [0-9]
+digits                    [0-9]+
 
-/* operators */
-assign         :=
-bind           -\>
-plus           \+
-minus          \-
-multi          \*
-divide         \/
-modulo         mod
-lparen         \(
-rparen         \)
-lbrace         \{
-rbrace         \}
-semicolon      ;
+letter                    [a-zA-Z]
+letters                   [a-zA-Z]+
 
-/* keywords */
-var            var
-int_type       Int
-num_type       Num
-string_type    String
-point_type     Point
-path_type      Path
-term_type      Term
+identifier                [a-zA-Z][a-zA-Z0-9]*
 
-/* indetifier */
-identifier     [a-zA-Z][a-zA-Z0-9]*
+sign                      [+-]
 
-/* numbers */
-real           [+-]?[0-9]+\.[0-9]+?(E[+-]?[0-9]+)?
-integer        [+-]?[0-9]+
-string         \"[^\"]*\"
+ws                        [ \t\n\r]+
 
-/* whitespace */
-ws             [ \t\n]+
+str                       [^\"]*
 
 %%
 
-{lparen}              {printf("asd"); yylval= 14; return (LPAREN);}
-{ws}                  ;
-{integer}             printf("INTEGER");
-{real}                printf("REAL");
-.                     return(yytext[0]);
+{ws}                      ;
+
+"("                         return LPAREN;
+")"                         return RPAREN;
+"{"                         return LBRACE;
+"}"                         return RBRACE;
+","                         return COMMA;
+":"                         return COLON;
+";"                         return SEMICOLON;
+"+"                        return OP_PLUS;
+"-"                         return OP_MINUS;
+"*"                         return OP_STAR;
+"/"                         return OP_DIV;
+":="                        return OP_ASSIGN;
+"<-"                        return OP_BIND;
+"mod"                       return OP_MOD;
+
+"for"                       return FOR;
+"to"                        return TO;
+"step"                      return STEP;
+"do"                        return DO;
+"done"                      return DONE;
+
+"Num"                       return NUM;
+"Int"                       return INT;
+"String"                    return STRING;
+"Point"                     return POINT;
+"Path"                      return PATH;
+"Term"                      return TERM;
+
+"var"                       return VAR;
+"picture"                   return PICTURE;
+"start"                     return START;
+"end"                       return END;
+
+{identifier}              return IDENTIFIER;
+
+{sign}?{digits}"."{digits}?(E{sign}?{digits})? return REAL_LITERAL;
+{sign}?{digits}           return INTEGER_LITERAL;
+\"{str}\"                return STRING_LITERAL;
+
+\%.*                      ; 
+
+.                         yyerror("Unknown character");
 
 %%
 

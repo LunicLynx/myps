@@ -1,0 +1,14 @@
+picture "myPS-Beispiel"
+% Deklaration einiger Variablen
+var x    :      Num;
+var y : Num;
+var z : Num;
+var p : Path;
+var black : Term;
+
+start % Beginne mit Zeichenanweisungen
+
+
+ x := 3;
+ 
+end 
