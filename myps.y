@@ -56,7 +56,9 @@ args: arg
     | args COMMA arg
     ;
 
-arg: expr; 
+arg: expr 
+   | call
+   ; 
 
 expr: literal 
     | IDENTIFIER 
