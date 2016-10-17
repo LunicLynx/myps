@@ -24,6 +24,8 @@ str                       [^\"]*
 ")"                         return RPAREN;
 "{"                         return LBRACE;
 "}"                         return RBRACE;
+"<<"                        return PBEGIN;
+">>"                        return PEND; 
 ","                         return COMMA;
 ":"                         return COLON;
 ";"                         return SEMICOLON;
@@ -53,11 +55,25 @@ str                       [^\"]*
 "start"                     return START;
 "end"                       return END;
 
-{identifier}              return IDENTIFIER;
+{identifier}    {
+        yylval.name = yytext;
+        return IDENTIFIER;
+    }
 
-{sign}?{digits}"."{digits}?(E{sign}?{digits})? return REAL_LITERAL;
-{sign}?{digits}           return INTEGER_LITERAL;
-\"{str}\"                return STRING_LITERAL;
+{sign}?{digits}"."{digits}?(E{sign}?{digits})?     {
+        yylval.dVal = atof(yytext);
+        return REAL_LITERAL;
+    }
+
+{sign}?{digits}               {
+        yylval.iVal = atoi(yytext);
+        return INTEGER_LITERAL;
+    }
+
+\"{str}\"    {             
+        yylval.sVal = yytext;   
+        return STRING_LITERAL;
+    }
 
 \%.*                      ; 
 

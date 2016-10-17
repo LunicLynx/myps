@@ -5,6 +5,7 @@ var y : Num;
 var z : Num;
 var p : Path;
 var black : Term;
+var point : Point;
 
 start % Beginne mit Zeichenanweisungen
 
@@ -13,6 +14,10 @@ start % Beginne mit Zeichenanweisungen
  y <- x; % Variable y besitzt späte Bindung!
  z := x;
  x := 5;
+
+ point := (4,7);
+
+ p := <<(1,2),(0.3,4),point>>;
 
  black <- { setcolor(0,0,0); };
  setfont("Times", 20); % Scriftart Times, 20pt
