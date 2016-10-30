@@ -33,7 +33,7 @@ void yyerror(char *);
 %%
 
 program
-    : PICTURE STRING_LITERAL decls START commands END
+    : PICTURE STRING_LITERAL decls START commands END { printf("Akzeptiert\n"); }
     ;
 
 decls
@@ -96,10 +96,10 @@ expr: literal
     | PBEGIN expr_list PEND
     | IDENTIFIER 
     | call
-    | expr OP_PLUS expr { printf("add"); }
-    | expr OP_MINUS expr { printf("minus"); }
-    | expr OP_STAR expr { printf("mul"); }
-    | expr OP_DIV expr { printf("div"); }
+    | expr OP_PLUS expr
+    | expr OP_MINUS expr 
+    | expr OP_STAR expr 
+    | expr OP_DIV expr
     | expr OP_MOD expr  
     | block 
     | LPAREN expr RPAREN 

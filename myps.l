@@ -1,5 +1,6 @@
 %{
-#include "y.tab.h"
+#include "myps.tab.h"
+void yyerror(char *);
 %}
 
 digit                     [0-9]
@@ -20,40 +21,40 @@ str                       [^\"]*
 
 {ws}                      ;
 
-"("                         return LPAREN;
-")"                         return RPAREN;
-"{"                         return LBRACE;
-"}"                         return RBRACE;
-"<<"                        return PBEGIN;
-">>"                        return PEND; 
-","                         return COMMA;
-":"                         return COLON;
-";"                         return SEMICOLON;
-"+"                        return OP_PLUS;
-"-"                         return OP_MINUS;
-"*"                         return OP_STAR;
-"/"                         return OP_DIV;
-":="                        return OP_ASSIGN;
-"<-"                        return OP_BIND;
-"mod"                       return OP_MOD;
+"("                       return LPAREN;
+")"                       return RPAREN;
+"{"                       return LBRACE;
+"}"                       return RBRACE;
+"<<"                      return PBEGIN;
+">>"                      return PEND; 
+","                       return COMMA;
+":"                       return COLON;
+";"                       return SEMICOLON;
+"+"                       return OP_PLUS;
+"-"                       return OP_MINUS;
+"*"                       return OP_STAR;
+"/"                       return OP_DIV;
+":="                      return OP_ASSIGN;
+"<-"                      return OP_BIND;
+"mod"                     return OP_MOD;
 
-"for"                       return FOR;
-"to"                        return TO;
-"step"                      return STEP;
-"do"                        return DO;
-"done"                      return DONE;
+"for"                     return FOR;
+"to"                      return TO;
+"step"                    return STEP;
+"do"                      return DO;
+"done"                    return DONE;
 
-"Num"                       return NUM;
-"Int"                       return INT;
-"String"                    return STRING;
-"Point"                     return POINT;
-"Path"                      return PATH;
-"Term"                      return TERM;
+"Num"                     return NUM;
+"Int"                     return INT;
+"String"                  return STRING;
+"Point"                   return POINT;
+"Path"                    return PATH;
+"Term"                    return TERM;
 
-"var"                       return VAR;
-"picture"                   return PICTURE;
-"start"                     return START;
-"end"                       return END;
+"var"                     return VAR;
+"picture"                 return PICTURE;
+"start"                   return START;
+"end"                     return END;
 
 {identifier}    {
         yylval.name = yytext;
